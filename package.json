@@ -1,0 +1,30 @@
+{
+  "name": "users-posts-backend",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "config": "^3.3.12",
+    "express": "^4.21.1",
+    "nodemon": "^3.1.7",
+    "sqlite3": "^5.1.7",
+    "uuid": "^13.0.0"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "nodemon",
+    "dev:once": "ts-node src/index.ts"
+  },
+  "devDependencies": {
+    "@types/config": "^3.3.5",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.10.1",
+    "@types/sqlite3": "^3.1.11",
+    "@types/uuid": "^10.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2"
+  }
+}
