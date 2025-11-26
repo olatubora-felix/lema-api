@@ -1,4 +1,5 @@
 import { connection } from "./connection";
+import { v4 as uuidv4 } from "uuid";
 
 /**
  * Run a SQL command and return a promise
@@ -133,7 +134,7 @@ export const seedDatabase = async (): Promise<void> => {
 
     // Generate users and posts
     for (let i = 1; i <= 400; i++) {
-      const userId = `user-${i.toString().padStart(3, "0")}`;
+      const userId = uuidv4();
       const name = `User ${i}`;
       const username = `user${i}`;
       const email = `user${i}@example.com`;
@@ -159,7 +160,7 @@ export const seedDatabase = async (): Promise<void> => {
 
       // Insert 10 posts for this user
       for (let j = 1; j <= 10; j++) {
-        const postId = `post-${i.toString().padStart(3, "0")}-${j.toString().padStart(2, "0")}`;
+        const postId = uuidv4();
         const title = `Post ${j} by ${name}`;
         const body = `This is post number ${j} by ${name}. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`;
         
