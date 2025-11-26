@@ -3,7 +3,7 @@ import config from "config";
 import postsRouter from "./routes/posts";
 import usersRouter from "./routes/users";
 import { errorHandler } from "./middleware/errorHandler";
-import { initializeDatabase } from "./db/init";
+import { initializeDatabase, seedDatabase } from "./db/init";
 
 const port = config.get("port") as number;
 
@@ -25,8 +25,9 @@ app.use("/users", usersRouter);
 // Error handling middleware (must be last)
 app.use(errorHandler);
 
-// Initialize database and start server
+// Initialize database, seed data, and start server
 initializeDatabase()
+  .then(() => seedDatabase())
   .then(() => {
     app.listen(port, () => {
       console.log(`API server is running on port ${port}`);
