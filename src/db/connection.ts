@@ -18,8 +18,17 @@ if (path.isAbsolute(dbPath)) {
     const cwdPath = path.join(process.cwd(), dbPath);
     if (fs.existsSync(cwdPath)) {
       resolvedPath = cwdPath;
+    } else {
+      // If database doesn't exist, use the resolved path (will be created by SQLite)
+      resolvedPath = path.join(process.cwd(), dbPath);
     }
   }
+}
+
+// Ensure the directory exists for the database file
+const dbDir = path.dirname(resolvedPath);
+if (!fs.existsSync(dbDir)) {
+  fs.mkdirSync(dbDir, { recursive: true });
 }
 
 export const connection = new sqlite3.Database(resolvedPath);

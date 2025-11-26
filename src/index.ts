@@ -3,6 +3,8 @@ import config from "config";
 import postsRouter from "./routes/posts";
 import usersRouter from "./routes/users";
 import { errorHandler } from "./middleware/errorHandler";
+import { initializeDatabase } from "./db/init";
+
 const port = config.get("port") as number;
 
 const app: Application = express();
@@ -23,6 +25,14 @@ app.use("/users", usersRouter);
 // Error handling middleware (must be last)
 app.use(errorHandler);
 
-app.listen(port, () => {
-  console.log(`API server is running on port ${port}`);
-});
+// Initialize database and start server
+initializeDatabase()
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`API server is running on port ${port}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Failed to initialize database:", error);
+    process.exit(1);
+  });
